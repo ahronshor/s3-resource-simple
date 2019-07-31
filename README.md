@@ -22,6 +22,7 @@ resources:
     path: [<optional>, use to sync to a specific path of the bucket instead of root of bucket]
     options: [<optional, see note below>]
     region: <optional, see below>
+    endpoint: <optional, {{aws-endpoint}}>
 jobs:
 - name: <job name>
   plan:

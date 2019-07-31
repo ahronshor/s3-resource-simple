@@ -23,7 +23,11 @@ fi
 # Export AWS_DEFAULT_REGION if set
 [ -n "$AWS_DEFAULT_REGION" ] && export AWS_DEFAULT_REGION
 
+# sets AWS_ENDPOINT if set
+AWS_ENDPOINT=$(echo "$payload" | jq -r '.source.endpoint // empty')
+[ -n "$AWS_ENDPOINT" ] && endpoint="--endpoint=AWS_ENDPOINT"
+
 # Consider the most recent LastModified timestamp as the most recent version.
-timestamps=$(aws s3api list-objects --bucket $bucket --prefix "$prefix" --query 'Contents[].{LastModified: LastModified}')
+timestamps=$(aws s3api list-objects --bucket $bucket --prefix "$prefix" --query 'Contents[].{LastModified: LastModified}') $endpoint
 recent="$(echo $timestamps | jq -r 'max_by(.LastModified)')"
 echo "[$recent]"
