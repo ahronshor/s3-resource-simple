@@ -38,7 +38,7 @@ fi
 
 # sets AWS_ENDPOINT if set
 AWS_ENDPOINT=$(echo "$payload" | jq -r '.source.endpoint // empty')
-[ -n "$AWS_ENDPOINT" ] && endpoint="--endpoint=AWS_ENDPOINT"
+[ -n "$AWS_ENDPOINT" ] && endpoint="--endpoint=$AWS_ENDPOINT"
 
 echo "Uploading to S3..."
 eval aws s3 sync "$source/$dir" "s3://$bucket/$path" $options $endpoint

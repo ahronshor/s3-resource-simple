@@ -25,7 +25,7 @@ fi
 
 # sets AWS_ENDPOINT if set
 AWS_ENDPOINT=$(echo "$payload" | jq -r '.source.endpoint // empty')
-[ -n "$AWS_ENDPOINT" ] && endpoint="--endpoint=AWS_ENDPOINT"
+[ -n "$AWS_ENDPOINT" ] && endpoint="--endpoint=$AWS_ENDPOINT"
 
 # Consider the most recent LastModified timestamp as the most recent version.
 timestamps=$(aws s3api list-objects --bucket $bucket --prefix "$prefix" --query 'Contents[].{LastModified: LastModified}') $endpoint
