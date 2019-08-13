@@ -28,6 +28,6 @@ AWS_ENDPOINT=$(echo "$payload" | jq -r '.source.endpoint // empty')
 [ -n "$AWS_ENDPOINT" ] && endpoint="--endpoint=$AWS_ENDPOINT"
 
 # Consider the most recent LastModified timestamp as the most recent version.
-timestamps=$(aws s3api list-objects --bucket $bucket --prefix "$prefix" --query 'Contents[].{LastModified: LastModified}') $endpoint
+timestamps=$(aws s3api list-objects --bucket $bucket --prefix "$prefix" --query 'Contents[].{LastModified: LastModified}' $endpoint)
 recent="$(echo $timestamps | jq -r 'max_by(.LastModified)')"
 echo "[$recent]"

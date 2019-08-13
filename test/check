@@ -1,13 +1,12 @@
 #!/bin/sh
 
-set -e
+set -e -x -v
 
 json=$(cat config.json)
 
-source "$(dirname $0)/build.sh"
 
 echo $json | docker run \
   -i \
   --rm \
-  18fgsa/s3-resource-simple \
+  aharonshor/s3-resource-simple \
   /opt/resource/check
